@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="th">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>ID Life Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=IBM+Plex+Sans+Thai:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <section id="auth" class="auth-screen">
+      <div class="auth-visual">
+        <a class="auth-brand" href="#" aria-label="ID Life home">
+          <span class="brand-mark">ID</span>
+          <span>ID Life</span>
+        </a>
+        <div class="auth-visual-copy">
+          <p class="eyebrow">STUDENT LIFE, IN BALANCE</p>
+          <h1>พื้นที่ของคุณ<br />สำหรับทุกวันในรั้วมหาวิทยาลัย</h1>
+          <p>รวมเป้าหมาย กิจวัตร และเพื่อนที่ช่วยให้วันนี้ไปต่อได้</p>
+        </div>
+        <div class="auth-feature" aria-hidden="true">
+          <div class="feature-index">
+            <strong>01</strong><span>YOUR EVERYDAY<br />CAMPUS COMPANION</span>
+          </div>
+          <div class="feature-sequence">
+            <span>FOCUS</span><b>→</b><span>CONNECT</span><b>→</b
+            ><span>GROW</span>
+          </div>
+          <div class="feature-bottom">
+            <span>PERSONAL DASHBOARD</span><span>EST. FOR STUDENTS</span>
+          </div>
+        </div>
+        <p class="auth-footnote">
+          ID LIFE <span>·</span> PERSONAL CAMPUS SPACE
+        </p>
+      </div>
+      <div class="auth-panel">
+        <div class="auth-panel-top">
+          <span>STUDENT PORTAL</span><span>SECURE ACCESS</span>
+        </div>
+        <div id="cloudAuth" class="auth-card">
+          <div class="auth-mobile-brand">
+            <span class="brand-mark">ID</span><span>ID Life</span>
+          </div>
+          <p class="eyebrow">WELCOME BACK</p>
+          <h2>เข้าสู่ระบบ</h2>
+          <p class="auth-intro">
+            ใช้บัญชีที่ได้รับสิทธิ์จากผู้ดูแลเพื่อเข้าสู่พื้นที่ของคุณ
+          </p>
+          <label for="studentId">รหัสนักศึกษา</label>
+          <input
+            id="studentId"
+            class="input"
+            type="text"
+            maxlength="10"
+            inputmode="numeric"
+            autocomplete="username"
+            placeholder="กรอกรหัสนักศึกษา 10 หลัก"
+          />
+          <label for="studentDob">วันเกิด</label>
+          <input
+            id="studentDob"
+            class="input"
+            type="date"
+            autocomplete="bday"
+          />
+          <button id="cloudLogin" class="btn dark" type="button">
+            เข้าสู่ระบบ <span aria-hidden="true">→</span>
+          </button>
+          <p
+            id="cloudAuthMessage"
+            class="auth-message"
+            role="status"
+            aria-live="polite"
+          >
+            กรุณาตั้งค่า Supabase ใน cloud-config.js เพื่อเริ่มใช้งาน
+          </p>
+          <p class="auth-help">หากเข้าใช้งานไม่ได้ โปรดติดต่อผู้ดูแลระบบ</p>
+        </div>
+        <p class="auth-panel-foot">
+          ID LIFE <span>·</span> PRIVATE STUDENT WORKSPACE
+        </p>
+      </div>
+    </section>
+    <div id="app" class="app-shell hidden">
+      <aside class="sidebar">
+        <a class="brand" href="#dashboard" aria-label="ID Life dashboard">
+          <b class="brand-mark">ID</b>
+          <span>ID Life<small>STUDENT SPACE</small></span>
+        </a>
+        <div class="nav-label">WORKSPACE</div>
+        <nav aria-label="เมนูหลัก">
+          <button data-page="dashboard" class="active">
+            <span class="nav-icon">⌂</span><span>ภาพรวม</span
+            ><span class="nav-arrow">↗</span>
+          </button>
+          <button data-page="profile">
+            <span class="nav-icon">◉</span><span>โปรไฟล์</span>
+          </button>
+          <button data-page="tasks">
+            <span class="nav-icon">☷</span><span>เป้าหมาย</span>
+          </button>
+          <button data-page="community">
+            <span class="nav-icon">◎</span><span>เพื่อนและชุมชน</span>
+          </button>
+          <button data-page="settings">
+            <span class="nav-icon">⚙</span><span>ตั้งค่า</span>
+          </button>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="sidebar-note">
+            <span class="online-dot"></span
+            ><span>PERSONAL<br /><b>WORKSPACE</b></span>
+          </div>
+          <button id="logout" class="logout">
+            <span aria-hidden="true">↗</span> ออกจากระบบ
+          </button>
+        </div>
+      </aside>
+      <main class="main-shell">
+        <header class="topbar">
+          <div>
+            <div class="breadcrumb">
+              <span>STUDENT SPACE</span><span>/</span
+              ><small id="eyebrow">OVERVIEW</small>
+            </div>
+            <h2 id="title">ภาพรวม</h2>
+          </div>
+          <div class="topbar-right">
+            <span class="today-label" id="topDate"></span>
+            <div id="userChip" class="user-chip"></div>
+          </div>
+        </header>
+        <section id="dashboard" class="page">
+          <div class="welcome-band">
+            <div class="welcome-copy">
+              <p class="eyebrow">YOUR DAY, AT A GLANCE</p>
+              <h1 id="hello"></h1>
+              <p id="today"></p>
+            </div>
+            <div class="completion-block">
+              <div class="completion-copy">
+                <span>KEEP YOUR OWN PACE</span
+                ><strong>หนึ่งวัน<br />ทีละเป้าหมาย</strong
+                ><small>เริ่มจากสิ่งสำคัญที่สุด</small>
+              </div>
+              <div id="ring" class="ring"><b id="pct">0%</b></div>
+            </div>
+          </div>
+          <div class="stats-strip">
+            <div class="stat-item">
+              <span class="stat-mark coral"></span>
+              <div><small>เป้าหมายวันนี้</small><b id="total">0</b></div>
+            </div>
+            <div class="stat-item">
+              <span class="stat-mark mint"></span>
+              <div><small>ทำสำเร็จ</small><b id="done">0</b></div>
+            </div>
+            <div class="stat-item">
+              <span class="stat-mark blue"></span>
+              <div><small>ยังเหลือ</small><b id="remain">0</b></div>
+            </div>
+            <div class="stat-item stat-percent">
+              <span class="stat-mark yellow"></span>
+              <div><small>ความคืบหน้า</small><b id="percent">0%</b></div>
+            </div>
+          </div>
+          <div class="dashboard-grid">
+            <article class="panel today-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">FOCUS LIST</p>
+                  <h3>เป้าหมายวันนี้</h3>
+                </div>
+                <button data-page="tasks" class="text-action">
+                  ดูทั้งหมด <span>→</span>
+                </button>
+              </div>
+              <div id="dashTasks" class="task-list compact-list"></div>
+            </article>
+            <article class="panel progress-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">LAST 7 DAYS</p>
+                  <h3>จังหวะของสัปดาห์</h3>
+                </div>
+                <span class="panel-unit">%</span>
+              </div>
+              <div id="week" class="bars"></div>
+              <div class="chart-caption">
+                <span>7 วันที่ผ่านมา</span><span>ความสำเร็จรายวัน</span>
+              </div>
+            </article>
+          </div>
+          <div class="dashboard-footer">
+            <span>SMALL STEPS, STEADY DAYS</span
+            ><span>จัดการวันนี้ในแบบของคุณ</span>
+          </div>
+        </section>
+        <section id="profile" class="page">
+          <div class="page-intro">
+            <p class="eyebrow">YOUR IDENTITY</p>
+            <h1>ข้อมูลส่วนตัว</h1>
+            <p>รายละเอียดบัญชีและพื้นที่ส่วนตัวของคุณ</p>
+          </div>
+          <div class="profile-grid">
+            <article class="panel profile-card">
+              <div class="profile-card-label">STUDENT PROFILE</div>
+              <div class="profile-avatar-wrap">
+                <div id="avatar" class="avatar">U</div>
+                <span
+                  class="profile-status-dot"
+                  title="บัญชีที่เข้าสู่ระบบ"
+                ></span>
+              </div>
+              <input
+                id="avatarFile"
+                class="hidden"
+                type="file"
+                accept="image/*"
+              />
+              <div class="avatar-actions">
+                <button id="avatarUpload" class="mini" type="button">
+                  เปลี่ยนรูป
+                </button>
+                <button id="avatarRemove" class="mini hidden" type="button">
+                  ลบรูป
+                </button>
+              </div>
+              <h2 id="fullname"></h2>
+              <p id="bio" class="profile-bio"></p>
+              <div id="tags" class="profile-tags"></div>
+            </article>
+            <article class="panel profile-details">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">ACCOUNT DETAILS</p>
+                  <h3>ข้อมูลพื้นฐาน</h3>
+                </div>
+                <span class="detail-stamp">ID LIFE</span>
+              </div>
+              <div class="info">
+                <span>รหัสนักศึกษา</span><b id="pid"></b> <span>วันเกิด</span
+                ><b id="pdob"></b> <span>อายุ</span><b id="age"></b>
+                <span>คณะ</span><b id="faculty"></b> <span>สาขา</span
+                ><b id="major"></b>
+              </div>
+              <button data-page="settings" class="text-action">
+                แก้ไขข้อมูล <span>→</span>
+              </button>
+            </article>
+          </div>
+          <article class="panel location-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">LOCATION</p>
+                <h3>พิกัดบ้าน</h3>
+                <p>แชร์พิกัดตามระดับความสนิทที่ตั้งไว้</p>
+              </div>
+              <button id="loc" class="mini">ใช้ตำแหน่งปัจจุบัน</button>
+            </div>
+            <div class="coordinate-row">
+              <div><span>LATITUDE</span><b id="lat">ยังไม่ได้ตั้ง</b></div>
+              <div><span>LONGITUDE</span><b id="lng">ยังไม่ได้ตั้ง</b></div>
+            </div>
+          </article>
+        </section>
+        <section id="tasks" class="page">
+          <div class="page-title-row">
+            <div class="page-intro">
+              <p class="eyebrow">MAKE ROOM FOR WHAT MATTERS</p>
+              <h1>เป้าหมายรายวัน</h1>
+              <p>วางแผนเล็ก ๆ ให้วันนี้เดินหน้าได้จริง</p>
+            </div>
+            <button id="add" class="btn compact">
+              <span aria-hidden="true">＋</span> เพิ่มเป้าหมาย
+            </button>
+          </div>
+          <div class="task-progress panel">
+            <div><span>ความคืบหน้าวันนี้</span><b id="tpct">0%</b></div>
+            <div class="progress"><i id="bar"></i></div>
+          </div>
+          <div class="tasks-layout">
+            <article class="panel task-manager">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">YOUR CHECKLIST</p>
+                  <h3>รายการทั้งหมด</h3>
+                </div>
+                <span class="panel-unit">TODAY</span>
+              </div>
+              <div id="tasksList" class="task-list"></div>
+            </article>
+            <article class="panel history-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">WEEKLY RHYTHM</p>
+                  <h3>ความสม่ำเสมอ</h3>
+                </div>
+              </div>
+              <div id="history" class="bars"></div>
+              <p class="panel-note">ความสำเร็จย้อนหลัง 7 วัน</p>
+            </article>
+          </div>
+        </section>
+        <section id="community" class="page">
+          <div class="page-intro">
+            <p class="eyebrow">CAMPUS CONNECTIONS</p>
+            <h1>เพื่อนและชุมชน</h1>
+            <p>เชื่อมต่อกับคนรอบตัว พร้อมจัดการระดับการแชร์พิกัด</p>
+          </div>
+          <div class="community-grid">
+            <article class="panel friend-search">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">ADD SOMEONE</p>
+                  <h3>ค้นหาเพื่อน</h3>
+                </div>
+                <span class="search-icon">＋</span>
+              </div>
+              <label for="fid">รหัสนักศึกษา</label>
+              <div class="inline-form">
+                <input
+                  id="fid"
+                  class="input"
+                  maxlength="10"
+                  inputmode="numeric"
+                  placeholder="รหัสนักศึกษา 10 หลัก"
+                /><button id="send" class="btn dark" type="button">
+                  ส่งคำขอ <span aria-hidden="true">→</span>
+                </button>
+              </div>
+              <p id="friendMsg" class="inline-message" role="status"></p>
+            </article>
+            <article class="panel sharing-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">LOCATION PRIVACY</p>
+                  <h3>ระดับการแชร์พิกัด</h3>
+                </div>
+                <span class="privacy-mark">⌖</span>
+              </div>
+              <label for="tier">ใครเห็นพิกัดของคุณได้</label>
+              <div class="inline-form">
+                <select id="tier" class="input">
+                  <option value="1">1 — คนรู้จัก</option>
+                  <option value="2">2 — เพื่อนสนิท</option>
+                  <option value="3">3 — เพื่อนสนิทที่สุด</option></select
+                ><button id="saveTier" class="btn dark" type="button">
+                  บันทึก
+                </button>
+              </div>
+            </article>
+          </div>
+          <article class="panel friends-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">YOUR PEOPLE</p>
+                <h3>รายชื่อเพื่อน</h3>
+              </div>
+              <span class="panel-unit">CAMPUS</span>
+            </div>
+            <div id="friends" class="friends-list"></div>
+          </article>
+        </section>
+        <section id="settings" class="page">
+          <div class="page-intro">
+            <p class="eyebrow">MAKE IT YOURS</p>
+            <h1>ตั้งค่าโปรไฟล์</h1>
+            <p>ปรับข้อมูลที่แสดงในพื้นที่ของคุณ</p>
+          </div>
+          <article class="panel settings-panel">
+            <div class="panel-heading">
+              <div>
+                <p class="eyebrow">PERSONAL DETAILS</p>
+                <h3>ข้อมูลส่วนตัว</h3>
+              </div>
+            </div>
+            <div class="form">
+              <label for="sf"
+                >ชื่อ (จากทะเบียนนักศึกษา)<input
+                  id="sf"
+                  class="input"
+                  autocomplete="given-name"
+                  readonly
+              /></label>
+              <label for="sl"
+                >นามสกุล (จากทะเบียนนักศึกษา)<input
+                  id="sl"
+                  class="input"
+                  autocomplete="family-name"
+                  readonly
+              /></label>
+              <label for="sfa">คณะ<input id="sfa" class="input" /></label>
+              <label for="sm">สาขา<input id="sm" class="input" /></label>
+              <label class="form-wide" for="sb"
+                >แนะนำตัว<textarea
+                  id="sb"
+                  class="input"
+                  rows="3"
+                  maxlength="255"
+                ></textarea>
+              </label>
+            </div>
+            <div class="settings-actions">
+              <span>บันทึกลงโปรไฟล์ของบัญชีนี้</span
+              ><button id="save" class="btn compact">
+                บันทึกข้อมูล <span aria-hidden="true">→</span>
+              </button>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+    <div id="modal" class="modal hidden">
+      <div class="card">
+        <h3>เพิ่มเป้าหมาย</h3>
+        <input
+          id="taskName"
+          class="input"
+          placeholder="เช่น อ่านหนังสือ 2 ชั่วโมง"
+        /><input id="taskDate" class="input" type="date" /><button
+          id="taskSave"
+          class="btn"
+        >
+          เพิ่ม</button
+        ><button id="taskClose" class="btn ghost">ปิด</button>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="cloud-config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
